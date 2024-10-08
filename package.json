@@ -1,0 +1,24 @@
+{
+  "name": "iset_certif",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essayeswajih/isetCertif.git"
+  },
+  "keywords": [
+    "iset",
+    "iset_certif",
+    "certif"
+  ],
+  "author": "wajih",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/essayeswajih/isetCertif/issues"
+  },
+  "homepage": "https://github.com/essayeswajih/isetCertif#readme",
+  "description": ""
+}
