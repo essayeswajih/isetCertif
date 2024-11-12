@@ -1,10 +1,16 @@
 const express = require('express')
 const mysql = require('mysql')
 const hbs = require('express-hbs')
-//const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 //const cors = require('cors')
 const app = express();
 const port = 3000;
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(bodyParser.json())
+
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -48,14 +54,11 @@ app.get("/login", (req, res) => {
     res.render("login/login.hbs");
 });
 app.post("/login", (req,res)=>{
-    const sql = "SELECT * FROM utilisateur WHERE cin = ? AND password = ?";
+    const sql = "SELECT * FROM utilisateur WHERE cin = ? AND mot_de_passe = ?";
     connection.query(sql, [req.body.cin, req.body.password], (err, result) => {
         if (err) throw err;
-        console.log(result)
-        res.render("index",{
-            "layout":"main",
-            "certif":result
-        });
+        console.log(result);
+        res.redirect("/");
     });
 })
 
