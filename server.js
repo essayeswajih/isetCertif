@@ -38,14 +38,27 @@ app.get("/",(req,res)=>{
         if (err) throw err;
         console.log(result)
         res.render("index",{
-            "layout":"main"
+            "layout":"main",
+            "certif":result
         });
     })
 })
 
 app.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname,"views/login/login.hbs"));
+    //res.sendFile(path.join(__dirname,"views/login/login.hbs"));
+    res.render("login/login.hbs");
 });
+app.post("/login", (req,res)=>{
+    const sql = "SELECT * FROM utilisateur WHERE cin = ? AND password = ?";
+    connection.query(sql, [req.body.nom, req.body.password], (err, result) => {
+        if (err) throw err;
+        console.log(result)
+        res.render("index",{
+            "layout":"main",
+            "certif":result
+        });
+    });
+})
 
 app.get("/register", (req, res) => {
     res.sendFile(path.join(__dirname,"views/register/register.hbs"));

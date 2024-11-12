@@ -1,1 +1,18 @@
-hellooooooooooooooooooooo
+<ul class="certif">
+  {{#each certif}}
+  <div style="display: flex;flex-direction:column;justify-content:center;align-items:center">
+    <div class="card" style="margin-bottom: 20px;">
+        <p class="cookieHeading">{{this.titre}}</p>
+        <p class="cookieDescription" style="text-align:justify;">{{this.description}}</p>
+        <div class="buttonContainer">
+            <button class="acceptButton">Like</button>
+        <button class="declineButton">Dislike</button>
+        </div>
+
+    </div>
+  </div>
+
+  {{/each}}
+</ul>
+
+
