@@ -49,7 +49,7 @@ app.get("/login", (req, res) => {
 });
 app.post("/login", (req,res)=>{
     const sql = "SELECT * FROM utilisateur WHERE cin = ? AND password = ?";
-    connection.query(sql, [req.body.nom, req.body.password], (err, result) => {
+    connection.query(sql, [req.body.cin, req.body.password], (err, result) => {
         if (err) throw err;
         console.log(result)
         res.render("index",{
