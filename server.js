@@ -29,7 +29,7 @@ connection.connect((err) => {
 })
 
 app.engine('hbs', hbs.express4({
-    partialsDir: __dirname + '/views/partials',
+    //partialsDir: __dirname + '/views/partials',
     layoutsDir: __dirname + '/views/layouts'
 }));
 app.set('view engine', 'hbs');
@@ -37,9 +37,29 @@ app.set('views', __dirname + '/views');
 
 
 
+app.get("/api/like/:idProduit",(req,res)=>{
+    const idProduit = req.params.idProduit;
+    const query = "UPDATE likes SET likeCounts = likeCounts + 1 WHERE idProduit like ?";
+    connection.query(query, [idProduit], (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send("An error occurred while updating likes.");
+        }
+        else {
+            console.log(results.affectedRows + " record(s) updated");
+            res.send("done");
+        }
+    });
+});
 
 app.get("/",(req,res)=>{
-    const sql = "SELECT * FROM praduit";
+    const sql = `
+        SELECT praduit.*, likes.likeCounts
+        FROM praduit,likes
+        where
+        praduit.id = likes.idProduit;
+
+`;
     connection.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result)
