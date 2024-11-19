@@ -9,8 +9,10 @@
             console.log(id);
             fetch(`http://localhost:3000/api/like/${id}`,{
                 method:"get"
-            }).then(console.log("done"));
-            window.location.reload();
+            }).then(console.log("done")).then(setTimeout(() => {
+                window.location.reload();
+            }));
+
         }
     </script>
     <style>
