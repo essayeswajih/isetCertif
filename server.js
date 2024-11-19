@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 //const cors = require('cors')
 const app = express();
 const port = 3000;
+const path = require("path");
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -16,7 +17,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'isetcert'
+    database: 'produits'
 })
 
 connection.connect((err) => {
@@ -36,10 +37,9 @@ app.set('views', __dirname + '/views');
 
 
 
-const path = require("path");
 
 app.get("/",(req,res)=>{
-    const sql = "SELECT * FROM certif";
+    const sql = "SELECT * FROM praduit";
     connection.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result)
@@ -49,21 +49,5 @@ app.get("/",(req,res)=>{
         });
     })
 })
-
-app.get("/login", (req, res) => {
-    res.render("login/login.hbs");
-});
-app.post("/login", (req,res)=>{
-    const sql = "SELECT * FROM utilisateur WHERE cin = ? AND mot_de_passe = ?";
-    connection.query(sql, [req.body.cin, req.body.password], (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.redirect("/");
-    });
-})
-
-app.get("/register", (req, res) => {
-    res.sendFile(path.join(__dirname,"views/register/register.hbs"));
-});
 
 app.listen(port,()=>console.log(`Connected to ${port}`));
